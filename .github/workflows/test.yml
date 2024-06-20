@@ -29,6 +29,7 @@ jobs:
           uv pip install ".[dev]" black
       - name: 🧹 Lint with flake8
         run: |
-          make check_code_quality
+            source venv/bin/activate
+            make check_code_quality
       - name: 🧪 Test
         run: "python -m pytest ./test"
