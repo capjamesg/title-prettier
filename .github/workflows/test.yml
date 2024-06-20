@@ -32,5 +32,6 @@ jobs:
             source venv/bin/activate
             make check_code_quality
       - name: 🧪 Test
+        run: 
             source venv/bin/activate
-        run: "python -m pytest ./test"
+            python -m pytest ./test
