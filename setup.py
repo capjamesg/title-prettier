@@ -23,6 +23,7 @@ setuptools.setup(
         "requests",
         "fastapi",
         "slowapi",
+        "bs4"
     ],
     packages=find_packages(exclude=("tests",)),
     extras_require={
