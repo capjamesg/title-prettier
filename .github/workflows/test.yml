@@ -24,7 +24,7 @@ jobs:
       - name: 🦾 Install dependencies
         run: |
           python -m pip install --upgrade uv
-          uv pip install ".[dev]"
+          uv pip install ".[dev]" --python=${{ matrix.python-version }}
       - name: 🧹 Lint with flake8
         run: |
           make check_code_quality
