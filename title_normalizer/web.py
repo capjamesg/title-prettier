@@ -7,8 +7,7 @@ from slowapi.errors import RateLimitExceeded
 from slowapi.util import get_remote_address
 import os
 
-from titles import (IncompleteRequestError, URLRetrievalError,
-                    get_normalized_title)
+from titles import IncompleteRequestError, URLRetrievalError, get_normalized_title
 
 app = FastAPI(
     title="Title Normalizer",
@@ -38,16 +37,17 @@ if os.environ.get("SITE_ENV") == "local":
         allow_headers=["*"],
     )
 
+
 @app.get("/")
 @limiter.limit("10/minute")
-async def get_title(request: Request, url: str = None, title: str = None) -> Union[str, dict]:
+async def get_title(
+    request: Request, url: str = None, title: str = None
+) -> Union[str, dict]:
     """
     Retrieve a normalized title given a URL or a title.
     """
     try:
-        return {
-            "title": get_normalized_title(url=url, title=title)
-        }
+        return {"title": get_normalized_title(url=url, title=title)}
     except URLRetrievalError:
         raise HTTPException(status_code=500, detail="Failed to retrieve URL")
     except IncompleteRequestError:

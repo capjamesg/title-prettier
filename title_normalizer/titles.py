@@ -10,7 +10,18 @@ SEPARATORS = [" – ", " | ", " · ", " ~ ", " - ", " —", " : "]
 VIDEO_SITES = ["youtube.com", "vimeo.com"]
 CODE_SITES = ["github.com", "gitlab.com", "bitbucket.org"]
 PDF_DOMAINS = ["arxiv.org"]
-PODCAST_WEBSITES = ["anchor.fm", "podcasts.apple.com", "open.spotify.com", "podcasts.google.com", "pca.st", "overcast.fm", "castro.fm", "pocketcasts.com", "radiopublic.com", "breaker.audio"]
+PODCAST_WEBSITES = [
+    "anchor.fm",
+    "podcasts.apple.com",
+    "open.spotify.com",
+    "podcasts.google.com",
+    "pca.st",
+    "overcast.fm",
+    "castro.fm",
+    "pocketcasts.com",
+    "radiopublic.com",
+    "breaker.audio",
+]
 IMAGE_EXTENSIONS = [
     "jpg",
     "jpeg",
