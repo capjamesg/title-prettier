@@ -34,4 +34,4 @@ jobs:
       - name: 🧪 Test
         run: 
             source venv/bin/activate
-            python -m pytest ./test
+            python -m pytest ./tests/*
