@@ -1,7 +1,7 @@
 .PHONY: style check_code_quality
 
 export PYTHONPATH = .
-check_dirs := src
+check_dirs := title_normalizer tests
 
 style:
 	black  $(check_dirs)
