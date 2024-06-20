@@ -1,10 +1,7 @@
 import pytest
 
-from title_normalizer import (
-    get_normalized_title,
-    IncompleteRequestError,
-    URLRetrievalError,
-)
+from title_normalizer import (IncompleteRequestError, URLRetrievalError,
+                              get_normalized_title)
 
 TEST_CASES = [
     # title, url, expected

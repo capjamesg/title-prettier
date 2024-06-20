@@ -1,3 +1,4 @@
+import os
 from typing import Union
 
 from fastapi import FastAPI, HTTPException, Request
@@ -5,9 +6,8 @@ from fastapi.middleware.cors import CORSMiddleware
 from slowapi import Limiter, _rate_limit_exceeded_handler
 from slowapi.errors import RateLimitExceeded
 from slowapi.util import get_remote_address
-import os
-
-from titles import IncompleteRequestError, URLRetrievalError, get_normalized_title
+from titles import (IncompleteRequestError, URLRetrievalError,
+                    get_normalized_title)
 
 app = FastAPI(
     title="Title Normalizer",
