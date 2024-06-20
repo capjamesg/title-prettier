@@ -21,8 +21,10 @@ jobs:
           python-version: ${{ matrix.python-version }}
       - name: 🦾 Install dependencies
         run: |
-          python -m pip install --upgrade uv
-          uv pip install ".[dev]"
+            python -m pip install --upgrade uv
+            python -m venv venv
+            source venv/bin/activate
+            uv pip install ".[dev]" black
       - name: 🚀 Publish to PyPi
         env: 
           PYPI_USERNAME: ${{ secrets.PYPI_USERNAME }}
