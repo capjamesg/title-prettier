@@ -6,7 +6,7 @@ from bs4 import BeautifulSoup
 
 USER_AGENT = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36"
 
-SEPARATORS = [" – ", " | ", " · ", " ~ ", " - ", " —", " : "]
+SEPARATORS = [" -- ", " – ", " | ", " · ", " ~ ", " - ", " —", " : "]
 VIDEO_SITES = ["youtube.com", "vimeo.com"]
 CODE_SITES = ["github.com", "gitlab.com", "bitbucket.org"]
 PDF_DOMAINS = ["arxiv.org"]
@@ -63,9 +63,6 @@ class IncompleteRequestError(Exception):
     pass
 
 
-# CASES: If home page, get text after last separator
-
-
 def get_normalized_title(title: str = "", url: str = "") -> str:
     """
     Return a normalized title with the correct case.
@@ -92,9 +89,40 @@ def get_normalized_title(title: str = "", url: str = "") -> str:
         soup = BeautifulSoup(page.content, "html.parser")
 
         if soup.title:
-            title = soup.title.get_text()
+            title = soup.title.get_text().lower()
         elif soup.h1:
-            title = soup.h1.get_text()
+            title = soup.h1.get_text().lower()
+
+        page_text = soup.get_text().strip()
+        words = page_text.split()
+
+        word_freq = {}
+
+        for idx, word in enumerate(words):
+            if word in word_freq:
+                word_freq[word] += 1
+            else:
+                word_freq[word] = 1
+
+        new_title = ""
+
+        for idx, word in enumerate(title.split()):
+            if (
+                word_freq.get(word.lower(), 0) < word_freq.get(word.capitalize(), 0)
+                or idx == 0
+            ):
+                new_title += word.capitalize()
+            else:
+                new_title += word.lower()
+
+            new_title += " "
+
+        title = new_title.strip()
+
+        content_type = page.headers.get("Content-Type", "").split(";")[0].split("/")[1]
+
+        if content_type == "pdf":
+            title += " [pdf]"
 
     for sep in SEPARATORS:
         if sep in title:
@@ -104,7 +132,8 @@ def get_normalized_title(title: str = "", url: str = "") -> str:
             break
 
     for pattern, replacement in CONTENT_SUBSTITUTIONS:
-        title = re.sub(pattern, replacement, title)
+        if not title.endswith(replacement):
+            title = re.sub(pattern, replacement, title)
 
     title = title.rstrip(".")
 
@@ -116,3 +145,4 @@ def get_normalized_title(title: str = "", url: str = "") -> str:
             break
 
     return title.replace("  ", " ").strip()
+
