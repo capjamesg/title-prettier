@@ -1,6 +1,6 @@
 # title-prettier
 
-An opinionated Python tool to normalize titles into a consistent format.
+An opinionated Python tool to change titles into a consistent format, and to add useful context to titles.
 
 This tool is ideal for bookmarking tools, where you may want to regularize titles given a specific set of rules.
 
